@@ -1,0 +1,26 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
+
+import Home from './pages/Home'
+import Navbar from './components/Navbar'
+import SearchPage from "./pages/SearchPage";
+
+function App() {
+
+  return (
+    <div className="App">
+      <BrowserRouter>
+        <Navbar />
+        <div className="pages">
+          <Routes>
+            <Route path="/"  element={<Home />} />
+            <Route path="/search" element={<SearchPage />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </div>
+  );
+}
+
+export default App;
+
