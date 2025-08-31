@@ -20,12 +20,12 @@ app.use("/api/books", bookRoutes);
 
 // connect to db
 mongoose
-  .connect("mongodb+srv://priskateko:fmuqayYzoX9qplSE@mernapp.rjbzq7p.mongodb.net/")
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("mit der Datenbank verbunden");
     // listen to port
-    app.listen(4000, () => {
-      console.log("Warten auf Anfragen an Port 4000");
+    app.listen(process.env.PORT, () => {
+      console.log("Warten auf Anfragen an Port", process.env.PORT);
     });
   })
   .catch((err) => {
