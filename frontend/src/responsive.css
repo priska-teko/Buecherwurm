@@ -1,0 +1,38 @@
+@media (max-width: 1024px) {
+  header .container {
+    padding: 10px 16px;
+  }
+  .pages {
+    padding: 16px;
+  }
+  .home {
+    grid-template-columns: 1fr 2fr;
+    gap: 32px;
+  }
+  header h1 {
+    font-size: 1.4rem;
+  }
+}
+
+
+@media (max-width: 800px) {
+  .home {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  /* Formular als erstes Element anzeigen */
+  .create {
+    order: -1;
+  }
+
+  header h1 {
+    font-size: 1.25rem;
+  }
+  .pages {
+    padding: 14px;
+  }
+  .book-details {
+    margin: 12px auto;
+  }
+}

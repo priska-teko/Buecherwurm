@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  mongo:
+    image: mongo:6
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    build:
+      context: ./backend
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env
+    environment:
+      - PORT=4000
+      # Nutze EINE der beiden Varianten für MONGO_URI:
+      # 1) Lokale Mongo im Compose:
+      # - MONGO_URI=mongodb://mongo:27017/buecherwurm
+      # 2) Atlas in .env (empfohlen für dich, da vorhanden):
+      #   MONGO_URI=mongodb+srv://...  (in backend/.env)
+    depends_on:
+      - mongo
+    ports:
+      - "4000:4000"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
+
+volumes:
+  mongo_data:
