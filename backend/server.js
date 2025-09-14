@@ -1,33 +1,35 @@
-// backend/server.js
+require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
+const bookRoutes = require("./routes/books");
+
+// express app
 const app = express();
 
+// middleware
 app.use(express.json());
 
-const PORT = process.env.PORT || 4000;
-const MONGO_URI = process.env.MONGO_URI;
+app.use((req, res, next) => {
+  console.log(req.path, req.method);
+  next();
+});
 
-if (!MONGO_URI) {
-  console.error("❌ MONGO_URI ist nicht gesetzt!");
-  process.exit(1);
-}
+// routes
+app.use("/api/books", bookRoutes);
 
-// DB verbinden (optional dbName geben, falls nicht im URI)
+// connect to db
 mongoose
-  .connect(MONGO_URI /* , { dbName: 'test' } */)
-  .then(() => console.log("✅ MongoDB verbunden"))
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log("mit der Datenbank verbunden");
+    // listen to port
+    app.listen(process.env.PORT, () => {
+      console.log("Warten auf Anfragen an Port", process.env.PORT);
+    });
+  })
   .catch((err) => {
-    console.error("❌ MongoDB Fehler:", err);
-    process.exit(1);
+    console.log(err);
   });
 
-// Health-Check (muss 200 liefern)
-app.get("/api/health", (_req, res) => res.json({ ok: true }));
 
-// Bücher-Router
-app.use("/api/books", require("./routes/books"));
-
-app.listen(PORT, () => {
-  console.log("🚀 Server läuft auf Port", PORT);
-});
