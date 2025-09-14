@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Prod-Dependencies installieren
-RUN npm ci --omit=dev
+RUN npm install --omit=dev
 
 # Restlicher Code
 COPY . .
@@ -19,3 +19,5 @@ EXPOSE 4000
 
 # Startkommando (setzt voraus, dass "start" in package.json existiert)
 CMD ["npm", "start"]
+
+
