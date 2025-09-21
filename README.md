@@ -107,15 +107,3 @@ Basis: `http://localhost:4000/api`
 - `npm start` (im Backend): startet Express Server
 - `npm run build` (im Frontend): Produktion-Build für Deployment
 
----
-
-## 📖 ToDo / Erweiterungen
-- Benutzer-Authentifizierung (JWT)
-- Suche & Sortierung
-- Deployment (z. B. Render + Netlify)
-- Tests (Jest / React Testing Library)
-
----
-
-## 👤 Autor
-Projekt *Bücherwurm* – entwickelt mit ❤️ im MERN-Stack.
